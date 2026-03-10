@@ -105,7 +105,7 @@ Nota importante: Não existe funcionalidade de edição de cursos na aplicação
     - Performance: 2 casos
     - Exploratórios: 1 caso
  
-  Link da planilha: https://docs.google.com/spreadsheets/d/1TzkBkyM3-McZF7PswD4OK8hYLtlxUBttuzW1N_103XA/edit?usp=sharing
+  Link da planilha: blank<https://docs.google.com/spreadsheets/d/1TzkBkyM3-McZF7PswD4OK8hYLtlxUBttuzW1N_103XA/edit?usp=sharing>
 
 ## 3. Execução dos testes
   Principais Resultados:
@@ -128,51 +128,45 @@ Nota importante: Não existe funcionalidade de edição de cursos na aplicação
 
 Bugs Críticos:
   BUG-001: Sistema permite cadastro vazio sem validações
-  
   Severidade: 🔴 Crítica
   Impacto: Compromete integridade total dos dados
   Status: Aberto
   
   BUG-002: Exclusão não funciona (apenas exibe alert)
-  
   Severidade: 🔴 Crítica
   Impacto: Funcionalidade CRUD quebrada
   Status: Aberto
   
   BUG-006: Aceita valores negativos e zero em carga horária
-  
   Severidade: 🔴 Crítica
   Impacto: Dados logicamente inconsistentes
   Status: Aberto
 
+
 Bugs Altos:
   BUG-003: Instrutor não aparece na listagem
-  
   Severidade: 🟠 Alta
   Impacto: Perda de informação crítica
   Status: Aberto
   
   BUG-004: Campos texto aceitam números
-  
   Severidade: 🟠 Alta
   Impacto: Sem validação de tipo de dados
   Status: Aberto
   
   BUG-005: URLs aceitam qualquer formato
-  
   Severidade: 🟠 Alta
   Impacto: Imagens quebradas, links inválidos
   Status: Aberto
 
 Bug Médio:
   BUG-007: Aceita espaços em branco nos campos
-  
   Severidade: 🟡 Média
   Impacto: Burla validações básicas
   Status: Aberto
 
 
-Métricas de Qualidade
+## Métricas de Qualidade
 Cobertura de Testes
   - Fluxo Principal: 100% coberto
   - Validações de Campos: 75% executado
@@ -191,12 +185,12 @@ Taxa de Aprovação
   - Validações: 0% passou (13 falharam)
   - Geral: 6.7% passou
 
-Melhorias Sugeridas
+## Melhorias Sugeridas
   - Implementar feedback visual para todas as ações
   - Adicionar confirmação antes de exclusão
   - Implementar funcionalidade de edição de cursos
   - Melhorar mensagens de erro (mais específicas e orientativas)
   - Adicionar validação de datas (formato, passado vs futuro)
 
-Autor
+## Autor
 - Luiz Fernando Dionizio Pedrozo
