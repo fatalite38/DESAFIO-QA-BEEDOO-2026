@@ -134,39 +134,42 @@ Nota importante: Não existe funcionalidade de edição de cursos na aplicação
 TOTAL7
 
 Bugs Críticos:
-  BUG-001 🔴 CRÍTICO
-  Título: Sistema permite cadastro de curso completamente vazio sem nenhuma validação de obrigatoriedade
-  Módulo: Cadastro de Cursos
-  Ambiente: Web (Chrome, Firefox, Edge)
-  Severidade: 🔴 Crítica
+  BUG-001 🔴 CRÍTICO.
+  Título: Sistema permite cadastro de curso completamente vazio sem nenhuma validação de obrigatoriedade.
+  Módulo: Cadastro de Cursos.
+  Ambiente: Web (Chrome, Firefox, Edge).
+  Severidade: 🔴 Crítica.
+  
   Passos para reproduzir:
     1- Acessar https://creative-sherbet-a51eac.netlify.app/
-    2- Acessar o formulário de cadastro de cursos
-    3- NÃO preencher nenhum campo - deixar todos vazios
-    4- Não selecionar tipo de curso
-    5- Clicar no botão "Salvar" ou "Cadastrar"
-    6- Verificar se o curso foi cadastrado
-    7- Acessar a listagem de cursos
+    2- Acessar o formulário de cadastro de cursos.
+    3- NÃO preencher nenhum campo - deixar todos vazios.
+    4- Não selecionar tipo de curso.
+    5- Clicar no botão "Salvar" ou "Cadastrar".
+    6- Verificar se o curso foi cadastrado.
+    7- Acessar a listagem de cursos.
+    
   Resultado atual: Sistema aceita o cadastro sem nenhum dado preenchido. Um curso vazio é criado e aparece na listagem sem informações.
   Resultado esperado: Sistema deve validar campos obrigatórios mínimos (Nome, Descrição, Instrutor, Data início, Data fim, Número de vagas, Tipo de curso) e exibir mensagens de erro específicas. O cadastro deve ser bloqueado até que os campos obrigatórios sejam preenchidos.
+  
   Impacto: 
   - Compromete completamente a integridade dos dados do sistema.
   - Permite criação de registros sem significado, impossibilita buscas, filtros e relatórios confiáveis.
   - Sistema perde sua função principal de gerenciar informações de cursos.
 
   
-  BUG-002 🔴 CRÍTICO
-    Título: Botão de exclusão exibe mensagem "Curso excluído com Sucesso!" mas não remove o curso da listagem
-    Módulo: Exclusão de Cursos / Listagem de Cursos
-    Ambiente: Web (todos os navegadores)
-    Severidade: 🔴 Crítica
+  BUG-002 🔴 CRÍTICO.
+    Título: Botão de exclusão exibe mensagem "Curso excluído com Sucesso!" mas não remove o curso da listagem.
+    Módulo: Exclusão de Cursos / Listagem de Cursos.
+    Ambiente: Web (todos os navegadores).
+    Severidade: 🔴 Crítica.
     Passos para reproduzir:
       1- Acessar a aplicação
       2- Cadastrar um curso com dados válidos
       3- Navegar para a listagem de cursos
       4- Localizar o curso recém-cadastrado
       5- Clicar no botão vermelho de exclusão abaixo do curso
-      6- Observar o alert: "Curso excluído com Sucesso!"
+      6- Observar o alerta: "Curso excluído com Sucesso!"
       7- Fechar o alert (clicar OK)
       8- Verificar a listagem de cursos
     Resultado atual: Sistema exibe alerta de sucesso, porém o curso permanece visível na listagem. Nenhuma alteração é feita
