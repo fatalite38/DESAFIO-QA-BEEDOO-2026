@@ -95,18 +95,21 @@ Nota importante: Não existe funcionalidade de edição de cursos na aplicação
   Dados incompletos comprometem tomada de decisões
 
  2.2 Documentação de Testes
- Casos de Teste Criados: 30 casos
+ Casos de Teste Criados: 35 casos
     Distribuição por Tipo:
-    - Happy Path: 1 caso
-    - Validações de Campos: 15 casos
-    - Verificação de Exibição: 6 casos
-    - Funcionalidades CRUD: 4 casos
-    - Segurança: 1 caso
-    - Performance: 2 casos
-    - Exploratórios: 1 caso
+    - Happy Path: 2 Casos (online e presencial)
+    - Validações de Obrigatoriedade: 10 casos
+    - Validações de Tipo/Formato: 8 casos
+    - Validações de Datas: 4 casos
+    - Listagem: 4 casos
+    - Exclusão: 1 caso
+    - Segurança/Performance: 2 casos
  
-  Link da planilha: blank<https://docs.google.com/spreadsheets/d/1TzkBkyM3-McZF7PswD4OK8hYLtlxUBttuzW1N_103XA/edit?usp=sharing>
+  Link da planilha: https://docs.google.com/spreadsheets/d/1qdKBqGojkwLux5KYx8ZnAgWuF7auO-4wsCVh3Yb37Uk/edit?usp=sharing
+    Aba 1: 35 casos de teste detalhados
+    Aba 2: Resumo da execução
 
+  
 ## 3. Execução dos testes
   Principais Resultados:
   
@@ -125,46 +128,134 @@ Nota importante: Não existe funcionalidade de edição de cursos na aplicação
   Relatório Completo: https://docs.google.com/spreadsheets/d/1TzkBkyM3-McZF7PswD4OK8hYLtlxUBttuzW1N_103XA/edit?usp=sharing
 
 ## 4. Registros de Bugs
+🔴 Crítica  2  BUG-001, BUG-002
+🟠 Alta     4  BUG-003, BUG-004, BUG-005, BUG-006
+🟡 Média    1  BUG-007
+TOTAL7
 
 Bugs Críticos:
-  BUG-001: Sistema permite cadastro vazio sem validações
+  BUG-001 🔴 CRÍTICO
+  Título: Sistema permite cadastro de curso completamente vazio sem nenhuma validação de obrigatoriedade
+  Módulo: Cadastro de Cursos
+  Ambiente: Web (Chrome, Firefox, Edge)
   Severidade: 🔴 Crítica
-  Impacto: Compromete integridade total dos dados
-  Status: Aberto
+  Passos para reproduzir:
+    1- Acessar https://creative-sherbet-a51eac.netlify.app/
+    2- Acessar o formulário de cadastro de cursos
+    3- NÃO preencher nenhum campo - deixar todos vazios
+    4- Não selecionar tipo de curso
+    5- Clicar no botão "Salvar" ou "Cadastrar"
+    6- Verificar se o curso foi cadastrado
+    7- Acessar a listagem de cursos
+  Resultado atual: Sistema aceita o cadastro sem nenhum dado preenchido. Um curso vazio é criado e aparece na listagem sem informações.
+  Resultado esperado: Sistema deve validar campos obrigatórios mínimos (Nome, Descrição, Instrutor, Data início, Data fim, Número de vagas, Tipo de curso) e exibir mensagens de erro específicas. O cadastro deve ser bloqueado até que os campos obrigatórios sejam preenchidos.
+  Impacto: 
+  - Compromete completamente a integridade dos dados do sistema.
+  - Permite criação de registros sem significado, impossibilita buscas, filtros e relatórios confiáveis.
+  - Sistema perde sua função principal de gerenciar informações de cursos.
+
   
-  BUG-002: Exclusão não funciona (apenas exibe alert)
-  Severidade: 🔴 Crítica
-  Impacto: Funcionalidade CRUD quebrada
-  Status: Aberto
-  
-  BUG-006: Aceita valores negativos e zero em carga horária
-  Severidade: 🔴 Crítica
-  Impacto: Dados logicamente inconsistentes
-  Status: Aberto
+  BUG-002 🔴 CRÍTICO
+    Título: Botão de exclusão exibe mensagem "Curso excluído com Sucesso!" mas não remove o curso da listagem
+    Módulo: Exclusão de Cursos / Listagem de Cursos
+    Ambiente: Web (todos os navegadores)
+    Severidade: 🔴 Crítica
+    Passos para reproduzir:
+      1- Acessar a aplicação
+      2- Cadastrar um curso com dados válidos
+      3- Navegar para a listagem de cursos
+      4- Localizar o curso recém-cadastrado
+      5- Clicar no botão vermelho de exclusão abaixo do curso
+      6- Observar o alert: "Curso excluído com Sucesso!"
+      7- Fechar o alert (clicar OK)
+      8- Verificar a listagem de cursos
+    Resultado atual: Sistema exibe alerta de sucesso, porém o curso permanece visível na listagem. Nenhuma alteração é feita
+    Resultado esperado: Após clicar em excluir: (1) Exibir mensagem APENAS se exclusão foi executada, (2) Remover curso da listagem, (3) Atualizar interface, (4) Persistir exclusão no backend
+    Impacto: 
+    - Funcionalidade de exclusão completamente não funcional. 
+    - Impossibilidade de gerenciamento do catálogo, mensagem enganosa destrói confiança no sistema. 
+    - Viola princípios básicos de CRUD.
 
 
 Bugs Altos:
-  BUG-003: Instrutor não aparece na listagem
-  Severidade: 🟠 Alta
-  Impacto: Perda de informação crítica
-  Status: Aberto
+  BUG-003 🟠 ALTO
+    Título: Nome do instrutor não é exibido na listagem de cursos
+    Módulo: Listagem de Cursos
+    Ambiente: Web (todos os navegadores)
+    Severidade: 🟠 Alta
+    Passos para reproduzir:
+      1- Cadastrar curso com instrutor "Maria Silva"
+      2- Navegar para listagem
+      3- Verificar dados exibidos
+    Resultado atual: Nome do instrutor não é exibido na listagem
+    Resultado esperado: Instrutor deve ser exibido, pois é informação crítica
+    Impacto: 
+    - Perda de informação fundamental para gestão acadêmica.
+    - Impossibilita identificar responsável pelo curso.
+    
+  BUG-004 🟠 ALTO
+    Título: Campos de texto (Nome, Descrição, Instrutor) aceitam valores numéricos sem validação
+    Módulo: Cadastro de Cursos
+    Ambiente: Web (todos os navegadores)
+    Severidade: 🟠 Alta
+    Passos para reproduzir:
+      1- Preencher "Nome do curso": "12345"
+      2- Preencher "Descrição": "999999"
+      3- Preencher "Instrutor": "777"
+      4- Preencher demais campos válidos
+      5- Salvar
+    Resultado atual: Sistema aceita valores numéricos em campos de texto
+    Resultado esperado: Validação de tipo de conteúdo
+    Impacto: 
+    - Dados sem significado semântico.
+    - Cursos com nomes numéricos não fazem sentido.
+    
+  BUG-005 🟠 ALTO
+    Título: Campos URL e Link aceitam qualquer texto sem validação de formato
+    Módulo: Cadastro de Cursos
+    Ambiente: Web (todos os navegadores)
+    Severidade: 🟠 Alta
+    Passos para reproduzir:
+      1- Preencher "URL da Imagem": "imagem qualquer"
+      2- Selecionar tipo "Online"
+      3- Preencher "Link de inscrição": "abc123"
+      4- Salvar
+    Resultado atual: Sistema aceita qualquer string sem validar formato de URL
+    Resultado esperado: Validação de formato http:// ou https://
+    Impacto: 
+    - Imagens quebradas.
+    - links não funcionais.
   
-  BUG-004: Campos texto aceitam números
-  Severidade: 🟠 Alta
-  Impacto: Sem validação de tipo de dados
-  Status: Aberto
-  
-  BUG-005: URLs aceitam qualquer formato
-  Severidade: 🟠 Alta
-  Impacto: Imagens quebradas, links inválidos
-  Status: Aberto
+  BUG-006 🟠 ALTO
+    Título: Campo Número de Vagas aceita valores negativos e zero
+    Módulo: Cadastro de Cursos
+    Ambiente: Web (todos os navegadores)
+    Severidade: 🟠 Alta
+    Passos para reproduzir:
+      1- Preencher "Número de vagas": "-5"
+      2- Preencher demais campos válidos
+      3- Salvar
+      4- Repetir com: "0"
+    Resultado atual: Sistema aceita valores negativos e zero
+    Resultado esperado: Validação: número positivo >= 1. Erro: "Número de vagas deve ser maior que zero"
+    Impacto:
+    - Dados logicamente inconsistentes.
+    - Curso sem vagas ou com vagas negativas não faz sentido
+
 
 Bug Médio:
-  BUG-007: Aceita espaços em branco nos campos
-  Severidade: 🟡 Média
-  Impacto: Burla validações básicas
-  Status: Aberto
-
+  BUG-007 🟡 MÉDIO
+    Título: Campos de texto aceitam apenas espaços em branco
+    Módulo: Cadastro de Cursos
+    Ambiente: Web (todos os navegadores)
+    Severidade: 🟡 Média
+    Passos para reproduzir:
+      1- Preencher campos com apenas espaços: "     "
+      2- Salvar
+    Resultado atual: Sistema aceita whitespace
+    Resultado esperado: Aplicar trim() e validar
+    Impacto: Cria registros sem conteúdo significativo
+     
 
 ## Métricas de Qualidade
 Cobertura de Testes
@@ -185,12 +276,30 @@ Taxa de Aprovação
   - Validações: 0% passou (13 falharam)
   - Geral: 6.7% passou
 
-## Melhorias Sugeridas
-  - Implementar feedback visual para todas as ações
-  - Adicionar confirmação antes de exclusão
-  - Implementar funcionalidade de edição de cursos
-  - Melhorar mensagens de erro (mais específicas e orientativas)
-  - Adicionar validação de datas (formato, passado vs futuro)
+
+## Captura de Evidências
+
+  Bug de Validação de dados
+  https://drive.google.com/file/d/1SFKwLjEMY44_ngkKs2ZQq21GWnwuVxjH/view?usp=sharing
+  
+  Bug de cadastro vazio
+  https://drive.google.com/file/d/1lQD4W32AVGjw6NNBvH-mWwYmb549OaOz/view?usp=sharing
+
+  Bug de exclusão
+  https://drive.google.com/file/d/1lQD4W32AVGjw6NNBvH-mWwYmb549OaOz/view?usp=sharing
+
+  Erros no devTools
+  https://drive.google.com/file/d/1QM-6tixmuoqp6yS0sK4lIuVxclAgG5CJ/view?usp=sharing
+
+
+## Melhorias Sugeridas 
+  - Implementar validações de obrigatoriedade em todos os campos.
+  - Implementar feedback visual para todas as ações.
+  - Adicionar confirmação antes da exclusão.
+  - Corrigir funcionalidade de exclusão.
+  - Implementar funcionalidade de edição de cursos.
+  - Melhorar mensagens de erro (mais específicas e orientativas).
+  - Adicionar validação de dados.
 
 ## Autor
 - Luiz Fernando Dionizio Pedrozo
